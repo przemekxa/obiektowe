@@ -14,6 +14,17 @@
 
 ## Klasa `Backend`
 
+##### Konstruktor
+Backend powinien posiadać konstruktor, w którym zainicjowane zostanie okno, np.:
+```c++
+ExampleBackend::ExampleBackend() {
+    initscr();
+    raw();
+    keypad(stdscr, true);
+    noecho();
+}
+```
+
 ##### Metody:
 - `void bind(string str, function<void()> func, string help) ` - wiąże komendę z funkcją
     - `string str` - komenda
@@ -22,7 +33,8 @@
         - Przykład działania:
         ```c++
         backend->bind("<ENTER>", []() { cout << "Wcisnieto Enter"; }, "Pomoc"); // Wyrażenie lambda
-        backend->bind("<ENTER>", bind(&ExampleTool::saveFile, this), "Pomoc");  // Wiązanie
+        backend->bind("<ENTER>", [this]() { help(); }, "Pomoc"); // Wyrażenie lambda - metoda klasy
+        backend->bind("<ENTER>", bind(&ExampleTool::saveFile, this), "Zapisz");  // Wiązanie
         ```
 - `void start()` - rozpoczyna działanie backendu
 
@@ -34,8 +46,10 @@
 ```c++
 ExampleBackend b;
 ExampleTool t;
+
 b.tool = &t;
 t.backend = &b;
+
 t.init();
 b.start();
 ```
