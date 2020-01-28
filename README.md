@@ -36,6 +36,7 @@ ExampleBackend::ExampleBackend() {
         backend->bind("<ENTER>", [this]() { help(); }, "Pomoc"); // Wyrażenie lambda - metoda klasy
         backend->bind("<ENTER>", bind(&ExampleTool::saveFile, this), "Zapisz");  // Wiązanie
         ```
+- `void re_bind(std::string old_bind, std::string new_bind, std::function<void()> func)` - zmienia komendę związaną z funkcją
 - `void start()` - rozpoczyna działanie backendu
 
 ##### Pola:
